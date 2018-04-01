@@ -6,33 +6,39 @@ public class ReplaySystem : MonoBehaviour {
 
 	private const int BufferFrames = 100;
 	private MyKeyFrame[] KeyFrames = new MyKeyFrame[BufferFrames];
-	private Rigidbody mRigidBody;
+	private Rigidbody m_RigidBody;
+	private GameManager m_GameManager;
 
 	// Use this for initialization
 	void Start () {
-		mRigidBody = GetComponent<Rigidbody>();
+		m_RigidBody = GetComponent<Rigidbody>();
+		m_GameManager = GameObject.FindObjectOfType<GameManager>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		RecordFrames();
+		if(m_GameManager.IsRecording){
+			RecordFrames();
+		}else{
+			PlayBack();
+		}
 	}
 
 	void RecordFrames(){
-		mRigidBody.isKinematic = false;
+		m_RigidBody.isKinematic = false;
 		int frame = Time.frameCount % BufferFrames;
 		float time = Time.time;
-		Debug.Log("Writing to frame " + frame);
+		Debug.Log("ReplaySystem.cs: Recording frame " + frame);
 
 		KeyFrames[frame] = new MyKeyFrame(time, transform.position,transform.rotation);
 	}
 
 	void PlayBack(){
-		mRigidBody.isKinematic = true;
+		m_RigidBody.isKinematic = true;
 		int frame = Time.frameCount % BufferFrames;
-		Debug.Log("Reading frame " + frame);
 		transform.position = KeyFrames[frame].Position;
 		transform.rotation = KeyFrames[frame].Rotation;
+		Debug.Log("ReplaySystem.cs: Playing frame " + frame);
 	}
 }
 
