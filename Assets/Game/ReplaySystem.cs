@@ -28,7 +28,7 @@ public class ReplaySystem : MonoBehaviour {
 		m_RigidBody.isKinematic = false;
 		int frame = Time.frameCount % BufferFrames;
 		float time = Time.time;
-		Debug.Log("ReplaySystem.cs: Recording frame " + frame);
+		//Debug.Log("ReplaySystem.cs: Recording frame " + frame);
 
 		KeyFrames[frame] = new MyKeyFrame(time, transform.position,transform.rotation);
 	}
@@ -38,7 +38,7 @@ public class ReplaySystem : MonoBehaviour {
 		int frame = Time.frameCount % BufferFrames;
 		transform.position = KeyFrames[frame].Position;
 		transform.rotation = KeyFrames[frame].Rotation;
-		Debug.Log("ReplaySystem.cs: Playing frame " + frame);
+		//Debug.Log("ReplaySystem.cs: Playing frame " + frame);
 	}
 }
 
