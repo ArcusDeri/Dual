@@ -18,8 +18,8 @@ public class SelfieStick : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		StickRotation.y += CrossPlatformInputManager.GetAxis("RHorizontal") * PanSpeed;
-		StickRotation.x += CrossPlatformInputManager.GetAxis("RVertical") * PanSpeed;
+		StickRotation.y += -1 * CrossPlatformInputManager.GetAxis("RHorizontal") * PanSpeed;
+		StickRotation.z += CrossPlatformInputManager.GetAxis("RVertical") * PanSpeed;
 		transform.position = m_Player.transform.position;
 		transform.rotation = Quaternion.Euler(StickRotation);
 	}

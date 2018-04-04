@@ -31,6 +31,7 @@ public class ReplaySystem : MonoBehaviour {
 		//Debug.Log("ReplaySystem.cs: Recording frame " + frame);
 
 		KeyFrames[frame] = new MyKeyFrame(time, transform.position,transform.rotation);
+		m_GameManager.PositionBeforeReplay = KeyFrames[0].Position;
 	}
 
 	void PlayBack(){

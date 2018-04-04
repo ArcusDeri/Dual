@@ -7,12 +7,15 @@ using UnityStandardAssets.CrossPlatformInput;
 public class GameManager : MonoBehaviour {
 
 	public bool IsRecording = true;
+	public Vector3 PositionBeforeReplay;
 
 	private bool IsPaused = false;
 	private float m_FixedDeltaTime;
+	private Player m_Player;
 	
 	void Start(){
 		m_FixedDeltaTime = Time.fixedDeltaTime;
+		m_Player = GameManager.FindObjectOfType<Player>();
 	}
 	// Update is called once per frame
 	void Update () {
@@ -21,11 +24,18 @@ public class GameManager : MonoBehaviour {
 		}else{
 			IsRecording = true;
 		}
+		if(CrossPlatformInputManager.GetButtonUp("Fire1"))
+			ResetBallPositionAfterReplay();
 		if(CrossPlatformInputManager.GetButtonDown("Pause")){
 			SwitchPauseState();
 		}
 	}
 
+	public void ResetBallPositionAfterReplay(){
+		Debug.Log("Ball returns");
+		m_Player.transform.position = PositionBeforeReplay;
+	}
+	
     private void SwitchPauseState()
     {
 		if(!IsPaused){
