@@ -11,6 +11,7 @@ public class ReplaySystem : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		//print("replay start");
 		m_RigidBody = GetComponent<Rigidbody>();
 		m_GameManager = GameObject.FindObjectOfType<GameManager>();
 	}

@@ -25,16 +25,12 @@ public class GameManager : MonoBehaviour {
 			IsRecording = true;
 		}
 		if(CrossPlatformInputManager.GetButtonUp("Fire1"))
-			ResetBallPositionAfterReplay();
+			m_Player.ResetBallPositionAfterReplay(PositionBeforeReplay);
 		if(CrossPlatformInputManager.GetButtonDown("Pause")){
 			SwitchPauseState();
 		}
 	}
 
-	public void ResetBallPositionAfterReplay(){
-		Debug.Log("Ball returns");
-		m_Player.transform.position = PositionBeforeReplay;
-	}
 	
     private void SwitchPauseState()
     {
