@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour {
 
 	public bool IsRecording = true;
 	public Vector3 PositionBeforeReplay;
+	public Vector3 VelocityBeforeReplay;
+	public Vector3 AngularVelocityBeforeReplay;
 
 	private bool IsPaused = false;
 	private float m_FixedDeltaTime;
@@ -25,7 +27,7 @@ public class GameManager : MonoBehaviour {
 			IsRecording = true;
 		}
 		if(CrossPlatformInputManager.GetButtonUp("Fire1"))
-			m_Player.ResetBallPositionAfterReplay(PositionBeforeReplay);
+			m_Player.ResetBallPositionAfterReplay(PositionBeforeReplay,VelocityBeforeReplay,AngularVelocityBeforeReplay);
 		if(CrossPlatformInputManager.GetButtonDown("Pause")){
 			SwitchPauseState();
 		}

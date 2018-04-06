@@ -20,9 +20,11 @@ public class Player : MonoBehaviour {
 		// Debug.Log("Input H: " + CrossPlatformInputManager.GetAxis("Horizontal"));
 		// Debug.Log("Input V: " + CrossPlatformInputManager.GetAxis("Vertical"));
 	}
-	public void ResetBallPositionAfterReplay(Vector3 positionBeforeReplay){
+	public void ResetBallPositionAfterReplay(Vector3 position,Vector3 velocity,Vector3 angularVelocity){
 		Debug.Log("Ball returns");
-		transform.position = positionBeforeReplay;
+		transform.position = position;
+		m_Rigidbody.velocity = velocity;
+		m_Rigidbody.angularVelocity = angularVelocity;
 	}
 	public void MoveToOrigin(){
 		gameObject.transform.position = Origin;

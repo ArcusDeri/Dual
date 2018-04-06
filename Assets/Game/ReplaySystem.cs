@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class ReplaySystem : MonoBehaviour {
 
-	private const int BufferFrames = 100;
+	private const int BufferFrames = 1000;
 	private MyKeyFrame[] KeyFrames = new MyKeyFrame[BufferFrames];
 	private Rigidbody m_RigidBody;
 	private GameManager m_GameManager;
+	private int LastWrittenFrame;
 
 	// Use this for initialization
 	void Start () {
@@ -29,15 +30,20 @@ public class ReplaySystem : MonoBehaviour {
 		m_RigidBody.isKinematic = false;
 		int frame = Time.frameCount % BufferFrames;
 		float time = Time.time;
-		//Debug.Log("ReplaySystem.cs: Recording frame " + frame);
+		if(Time.frameCount < BufferFrames)
+			LastWrittenFrame = frame;
 
 		KeyFrames[frame] = new MyKeyFrame(time, transform.position,transform.rotation);
 		m_GameManager.PositionBeforeReplay = KeyFrames[0].Position;
+		m_GameManager.VelocityBeforeReplay = m_RigidBody.velocity;
+		m_GameManager.AngularVelocityBeforeReplay = m_RigidBody.angularVelocity;
 	}
 
 	void PlayBack(){
 		m_RigidBody.isKinematic = true;
 		int frame = Time.frameCount % BufferFrames;
+		if(Time.frameCount < BufferFrames)
+			frame = frame % LastWrittenFrame;
 		transform.position = KeyFrames[frame].Position;
 		transform.rotation = KeyFrames[frame].Rotation;
 		//Debug.Log("ReplaySystem.cs: Playing frame " + frame);
