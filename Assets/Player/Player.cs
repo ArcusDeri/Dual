@@ -21,7 +21,6 @@ public class Player : MonoBehaviour {
 		// Debug.Log("Input V: " + CrossPlatformInputManager.GetAxis("Vertical"));
 	}
 	public void ResetBallPositionAfterReplay(Vector3 position,Vector3 velocity,Vector3 angularVelocity){
-		Debug.Log("Ball returns");
 		transform.position = position;
 		m_Rigidbody.velocity = velocity;
 		m_Rigidbody.angularVelocity = angularVelocity;

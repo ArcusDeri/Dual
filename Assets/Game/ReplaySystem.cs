@@ -12,7 +12,6 @@ public class ReplaySystem : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		//print("replay start");
 		m_RigidBody = GetComponent<Rigidbody>();
 		m_GameManager = GameObject.FindObjectOfType<GameManager>();
 	}
@@ -34,7 +33,7 @@ public class ReplaySystem : MonoBehaviour {
 			LastWrittenFrame = frame;
 
 		KeyFrames[frame] = new MyKeyFrame(time, transform.position,transform.rotation);
-		m_GameManager.PositionBeforeReplay = KeyFrames[0].Position;
+		m_GameManager.PositionBeforeReplay = KeyFrames[frame].Position;
 		m_GameManager.VelocityBeforeReplay = m_RigidBody.velocity;
 		m_GameManager.AngularVelocityBeforeReplay = m_RigidBody.angularVelocity;
 	}
