@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class ReplaySystem : MonoBehaviour {
 
@@ -8,12 +9,14 @@ public class ReplaySystem : MonoBehaviour {
 	private MyKeyFrame[] KeyFrames = new MyKeyFrame[BufferFrames];
 	private Rigidbody m_RigidBody;
 	private GameManager m_GameManager;
+	private Player m_Player;
 	private int LastWrittenFrame;
 
 	// Use this for initialization
 	void Start () {
 		m_RigidBody = GetComponent<Rigidbody>();
 		m_GameManager = GameObject.FindObjectOfType<GameManager>();
+		m_Player = GameObject.FindObjectOfType<Player>();
 	}
 	
 	// Update is called once per frame
@@ -33,9 +36,10 @@ public class ReplaySystem : MonoBehaviour {
 			LastWrittenFrame = frame;
 
 		KeyFrames[frame] = new MyKeyFrame(time, transform.position,transform.rotation);
-		m_GameManager.PositionBeforeReplay = KeyFrames[frame].Position;
-		m_GameManager.VelocityBeforeReplay = m_RigidBody.velocity;
-		m_GameManager.AngularVelocityBeforeReplay = m_RigidBody.angularVelocity;
+
+		m_Player.PositionBeforeReplay = KeyFrames[frame].Position;
+		m_Player.VelocityBeforeReplay = m_RigidBody.velocity;
+		m_Player.AngularVelocityBeforeReplay = m_RigidBody.angularVelocity;
 	}
 
 	void PlayBack(){
