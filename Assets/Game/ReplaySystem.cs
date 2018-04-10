@@ -29,6 +29,8 @@ public class ReplaySystem : MonoBehaviour {
 	}
 
 	void RecordFrames(){
+		if(m_Player.WillReturnBeforeReplay)
+			return;
 		m_RigidBody.isKinematic = false;
 		int frame = Time.frameCount % BufferFrames;
 		float time = Time.time;

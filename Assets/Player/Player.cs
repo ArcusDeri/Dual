@@ -8,6 +8,7 @@ public class Player : MonoBehaviour {
 	public Vector3 PositionBeforeReplay;
 	public Vector3 VelocityBeforeReplay;
 	public Vector3 AngularVelocityBeforeReplay;
+	public bool WillReturnBeforeReplay = false;
 
 	private Rigidbody m_Rigidbody;
 
@@ -21,13 +22,12 @@ public class Player : MonoBehaviour {
 	void Update () {
 		// Debug.Log("Input H: " + CrossPlatformInputManager.GetAxis("Horizontal"));
 		// Debug.Log("Input V: " + CrossPlatformInputManager.GetAxis("Vertical"));
-		Debug.Log("Before: " + PositionBeforeReplay + " " + Time.time);
 	}
 	public void ResetBallPositionAfterReplay(){
-		Debug.LogError("Reset to " + PositionBeforeReplay + " " + Time.time);
 		transform.position = PositionBeforeReplay;
 		m_Rigidbody.velocity = VelocityBeforeReplay;
 		m_Rigidbody.angularVelocity = AngularVelocityBeforeReplay;
+		WillReturnBeforeReplay = false;
 	}
 	public void MoveToOrigin(){
 		gameObject.transform.position = Origin;

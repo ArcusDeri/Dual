@@ -18,14 +18,16 @@ public class GameManager : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
-		if(CrossPlatformInputManager.GetButton("Fire1")){
-			IsRecording = false;
-		}else{
-			IsRecording = true;
-		}
 		if(CrossPlatformInputManager.GetButtonUp("Fire1")){
 			m_Player.ResetBallPositionAfterReplay();
 		}
+		if(CrossPlatformInputManager.GetButton("Fire1")){
+			IsRecording = false;
+			m_Player.WillReturnBeforeReplay = true;
+		}else{
+			IsRecording = true;
+		}
+		
 		if(CrossPlatformInputManager.GetButtonDown("Pause")){
 			SwitchPauseState();
 		}
