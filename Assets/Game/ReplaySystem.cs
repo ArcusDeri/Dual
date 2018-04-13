@@ -21,6 +21,9 @@ public class ReplaySystem : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if(CrossPlatformInputManager.GetButtonUp("Fire1")){
+			RevertToOriginalState();
+		}
 		if(m_GameManager.IsRecording){
 			RecordFrames();
 		}else{
@@ -34,8 +37,7 @@ public class ReplaySystem : MonoBehaviour {
 		m_RigidBody.isKinematic = false;
 		int frame = Time.frameCount % BufferFrames;
 		float time = Time.time;
-		if(Time.frameCount < BufferFrames)
-			LastWrittenFrame = frame;
+		LastWrittenFrame = frame;
 
 		KeyFrames[frame] = new MyKeyFrame(time, transform.position,transform.rotation);
 
@@ -52,6 +54,13 @@ public class ReplaySystem : MonoBehaviour {
 		transform.position = KeyFrames[frame].Position;
 		transform.rotation = KeyFrames[frame].Rotation;
 		//Debug.Log("ReplaySystem.cs: Playing frame " + frame);
+	}
+
+	void RevertToOriginalState(){
+		if(gameObject.tag == "Player")
+			return;
+		gameObject.transform.position = KeyFrames[LastWrittenFrame].Position;
+		gameObject.transform.rotation = KeyFrames[LastWrittenFrame].Rotation;
 	}
 }
 

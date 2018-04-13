@@ -19,12 +19,12 @@ public class MessageBox : MonoBehaviour {
 	}
 
 	public void Clear(){
-		print("Clearing the message");
 		m_Text.text = "";
 	}
 
-	public void SetMessage(string message,float timeToHide = 1){
+	public void SetMessage(string message,float timeToHide = 0){
 		m_Text.text = message;
-		Invoke("Clear", timeToHide);
+		if(timeToHide > 0)
+			Invoke("Clear", timeToHide);
 	}
 }
