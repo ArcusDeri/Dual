@@ -41,9 +41,11 @@ public class ReplaySystem : MonoBehaviour {
 
 		KeyFrames[frame] = new MyKeyFrame(time, transform.position,transform.rotation);
 
-		m_Player.PositionBeforeReplay = KeyFrames[frame].Position;
-		m_Player.VelocityBeforeReplay = m_RigidBody.velocity;
-		m_Player.AngularVelocityBeforeReplay = m_RigidBody.angularVelocity;
+		if(gameObject.tag == "Player"){
+			m_Player.PositionBeforeReplay = KeyFrames[frame].Position;
+			m_Player.VelocityBeforeReplay = m_RigidBody.velocity;
+			m_Player.AngularVelocityBeforeReplay = m_RigidBody.angularVelocity;
+		}
 	}
 
 	void PlayBack(){
